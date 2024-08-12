@@ -16,6 +16,7 @@ CREATE TABLE "Question" (
     "id" SERIAL NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "title" TEXT NOT NULL,
     "resolved" BOOLEAN NOT NULL DEFAULT false,
     "resolution" TEXT,
     "userId" INTEGER NOT NULL,

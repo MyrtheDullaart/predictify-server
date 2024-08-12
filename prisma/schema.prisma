@@ -23,6 +23,7 @@ model Question {
   id          Int         @id @default(autoincrement())
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
+  title       String
   resolved    Boolean     @default(false)
   resolution  String?
   userId      Int
