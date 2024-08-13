@@ -30,3 +30,11 @@ export const createUser = async (email, password, first_name, last_name) => {
         }
     })
 }
+
+export const findUserById = async (id) => {
+    return await dbClient.user.findFirst({
+        where: {
+            id: id
+        }
+    })
+}
