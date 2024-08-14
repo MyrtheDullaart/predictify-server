@@ -8,10 +8,11 @@ const dbClient = new prisma.PrismaClient({
     }
 })
 
-export const getAllQuestionsByUserId = async (userId) => {
+export const getAllQuestionsByUserId = async (userId, resolved) => {
     return await dbClient.question.findMany({
         where: {
-            userId: userId
+            userId: userId,
+            resolved: resolved
         },
         orderBy: {
             createdAt: 'desc'

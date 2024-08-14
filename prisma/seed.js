@@ -11,6 +11,8 @@ async function seed() {
     )
 
     await createQuestion(user.id, 'Will I finish my app?')
+    await createQuestion(user.id, 'Will I win a gold medal at the next olympics?')
+    await createQuestion(user.id, 'Will I ever see an alien?')
 
     process.exit(0)
 }
