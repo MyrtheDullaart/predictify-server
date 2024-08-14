@@ -12,6 +12,12 @@ export const getAllQuestionsByUserId = async (userId) => {
     return await dbClient.question.findMany({
         where: {
             userId: userId
+        },
+        orderBy: {
+            createdAt: 'desc'
+        },
+        include: {
+            user: true
         }
     })
 }
