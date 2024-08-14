@@ -4,10 +4,10 @@ import { getAllQuestionsByUserId } from '../domain/question.js'
 
 export const getQuestionsByUserId = async (req, res) => {
     const { id: userID } = req.user
-    const { resolved } = req.query
+    const { resolved, search } = req.query
 
     try {
-        const questions = await getAllQuestionsByUserId(userID, resolved === 'true')
+        const questions = await getAllQuestionsByUserId(userID, resolved, search)
 
         return sendDataResponse(res, 201, { questions: questions })
     } catch (error) {

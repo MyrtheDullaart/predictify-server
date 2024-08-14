@@ -8,11 +8,33 @@ const dbClient = new prisma.PrismaClient({
     }
 })
 
-export const getAllQuestionsByUserId = async (userId, resolved) => {
+export const getAllQuestionsByUserId = async (userId, resolved, search) => {
+    if (resolved === "") {
+        return await dbClient.question.findMany({
+            where: {
+                userId: userId,
+                title: {
+                    contains: search
+                }
+            },
+            orderBy: {
+                createdAt: 'desc'
+            },
+            include: {
+                user: true
+            }
+        })
+    }
+
+    const isResolved = resolved === "true"
+
     return await dbClient.question.findMany({
         where: {
             userId: userId,
-            resolved: resolved
+            resolved: isResolved,
+            title: {
+                contains: search
+            }
         },
         orderBy: {
             createdAt: 'desc'
