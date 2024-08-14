@@ -36,7 +36,7 @@ model Forecast {
   id          Int       @id @default(autoincrement())
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
-  prediction  Int
+  prediction  Decimal   @db.Decimal(3,2)       
   userId      Int
   user        User      @relation(fields: [userId], references: [id])
   questionId  Int

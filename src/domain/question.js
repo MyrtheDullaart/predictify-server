@@ -21,7 +21,12 @@ export const getAllQuestionsByUserId = async (userId, resolved, search) => {
                 createdAt: 'desc'
             },
             include: {
-                user: true
+                user: true,
+                forecasts: {
+                    orderBy: {
+                        createdAt: 'desc'
+                    }
+                }
             }
         })
     }
@@ -40,7 +45,12 @@ export const getAllQuestionsByUserId = async (userId, resolved, search) => {
             createdAt: 'desc'
         },
         include: {
-            user: true
+            user: true,
+            forecasts: {
+                orderBy: {
+                    createdAt: 'desc'
+                }
+            }
         }
     })
 }

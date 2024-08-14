@@ -10,9 +10,13 @@ async function seed() {
         'Doe'
     )
 
-    await createQuestion(user.id, 'Will I finish my app?')
-    await createQuestion(user.id, 'Will I win a gold medal at the next olympics?')
-    await createQuestion(user.id, 'Will I ever see an alien?')
+    const question1 = await createQuestion(user.id, 'Will I finish my app?')
+    const question2 = await createQuestion(user.id, 'Will I win a gold medal at the next olympics?')
+    const question3 = await createQuestion(user.id, 'Will I ever see an alien?')
+
+    await createForecast(user.id, question1.id, 0.7)
+    await createForecast(user.id, question1.id, 0.65)
+    await createForecast(user.id, question2.id, 0.01)
 
     process.exit(0)
 }
@@ -25,7 +29,8 @@ async function createQuestion(userId, title, resolution = null) {
             resolution
         },
         include: {
-            user: true
+            user: true,
+            forecasts: true
         }
     })
 
@@ -52,6 +57,24 @@ async function createUser(
     console.info(`created`, user)
 
     return user
+}
+
+async function createForecast(userId, questionId, prediction) {
+    const forecast = await prisma.forecast.create({
+        data: {
+            userId,
+            questionId,
+            prediction
+        },
+        include: {
+            user: true,
+            question: true
+        }
+    })
+
+    console.info('Forecast created', forecast)
+
+    return forecast
 }
 
 seed().catch(async (e) => {
