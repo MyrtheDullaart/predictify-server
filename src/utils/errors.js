@@ -10,5 +10,6 @@ export default {
     UNABLE_TO_GET_USER: 'Unable to get the user',
     MISSING_AUTH_HEADER: 'No authorisation header',
     TOKEN_FAILED: 'Missing or invalid token',
-    UNABLE_TO_GET_QUESTIONS: 'Unable to get questions'
+    UNABLE_TO_GET_QUESTIONS: 'Unable to get questions',
+    UNABLE_TO_CREATE_FORECAST: 'Unable to create forecast'
   }
