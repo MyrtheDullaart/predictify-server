@@ -60,3 +60,15 @@ export const getAllQuestionsByUserId = async (userId, resolved, search) => {
         }
     })
 }
+
+export const resolveQuestionById = async (questionId, resolution) => {
+    return await dbClient.question.update({
+        where: {
+            id: questionId
+        },
+        data: {
+            resolution: resolution,
+            resolved: true
+        }
+    })
+}
