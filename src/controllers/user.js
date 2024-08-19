@@ -49,6 +49,10 @@ export const editUser = async (req, res) => {
     const { id: userId } = req.user
     const { email, first_name, last_name } = req.body
 
+    if (!email || ! first_name || !last_name) {
+        return sendDataResponse(res, 400, { error: ERR.MISSING_FIELDS }) 
+    }
+
     try {
         const editedUser = await editUserById(userId, email, first_name, last_name)
 
