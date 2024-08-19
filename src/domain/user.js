@@ -38,3 +38,16 @@ export const findUserById = async (id) => {
         }
     })
 }
+
+export const editUserById = async (userId, email, first_name, last_name) => {
+    return await dbClient.user.update({
+        where: {
+            id: userId
+        },
+        data: {
+            email: email,
+            first_name: first_name,
+            last_name: last_name
+        }
+    })
+}

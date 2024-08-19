@@ -1,7 +1,7 @@
 import { sendDataResponse, sendMessageResponse } from '../utils/responses.js'
 import * as validation from '../utils/validation.js'
 import ERR from '../utils/errors.js'
-import { createUser, findUserByEmail, findUserById } from '../domain/user.js'
+import { createUser, editUserById, findUserByEmail, findUserById } from '../domain/user.js'
 
 export const create = async (req, res) => {
     const { email, password, first_name, last_name } = req.body
@@ -42,5 +42,18 @@ export const getUserById = async (req, res) => {
         return sendDataResponse(res, 200, { user: foundUser })
     } catch (e) {
         return sendMessageResponse(res, 500, { error: ERR.UNABLE_TO_GET_USER })
+    }
+}
+
+export const editUser = async (req, res) => {
+    const { id: userId } = req.user
+    const { email, first_name, last_name } = req.body
+
+    try {
+        const editedUser = await editUserById(userId, email, first_name, last_name)
+
+        return sendDataResponse(res, 200, { user: editedUser })
+    } catch (e) {
+        return sendMessageResponse(res, 500, { error: ERR.UNABLE_TO_UPDATE_USER })
     }
 }

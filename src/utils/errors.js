@@ -17,5 +17,6 @@ export default {
     QUESTION_NOT_FOUND: 'Question not found',
     NOT_AUTHORISED: 'Not authorised to complete action',
     UNABLE_TO_RESOLVE_QUESTION: 'Unable to resolve question',
-    UNABLE_TO_EDIT_QUESTION: 'Unable to edit question'
+    UNABLE_TO_EDIT_QUESTION: 'Unable to edit question',
+    UNABLE_TO_UPDATE_USER: 'Unable to update user'
   }
