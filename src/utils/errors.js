@@ -12,5 +12,8 @@ export default {
     TOKEN_FAILED: 'Missing or invalid token',
     UNABLE_TO_GET_QUESTIONS: 'Unable to get questions',
     UNABLE_TO_CREATE_FORECAST: 'Unable to create forecast',
-    UNABLE_TO_CREATE_QUESTION: 'Unable to create question'
+    UNABLE_TO_CREATE_QUESTION: 'Unable to create question',
+    UNABLE_TO_DELETE_QUESTION: 'Unable to delete question',
+    QUESTION_NOT_FOUND: 'Question not found',
+    NOT_AUTHORISED: 'Not authorised to complete action'
   }

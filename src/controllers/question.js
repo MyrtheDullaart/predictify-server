@@ -1,6 +1,6 @@
 import { sendDataResponse, sendMessageResponse } from '../utils/responses.js'
 import ERR from '../utils/errors.js'
-import { createNewQuestion, getAllQuestionsByUserId, resolveQuestionById } from '../domain/question.js'
+import { createNewQuestion, deleteQuestionById, getAllQuestionsByUserId, getQuestionById, resolveQuestionById } from '../domain/question.js'
 
 export const getQuestionsByUserId = async (req, res) => {
     const { id: userId } = req.user
@@ -43,5 +43,30 @@ export const createQuestion = async (req, res) => {
         console.error(ERR.UNABLE_TO_CREATE_QUESTION, error)
         
         return sendMessageResponse(res, 500, ERR.UNABLE_TO_CREATE_QUESTION)
+    }
+}
+
+export const deleteQuestion = async (req, res) => {
+    const { questionId } = req.body
+    const { id: userId } = req.user
+
+    const foundQuestion = await getQuestionById(questionId)
+
+    if (!foundQuestion) {
+        return sendDataResponse(res, 404, { error: ERR.QUESTION_NOT_FOUND })
+    }
+
+    if (foundQuestion.userId !== userId) {
+        return sendDataResponse(res, 403, { error: ERR.NOT_AUTHORISED })
+    }
+
+    try {
+        const deletedQuestion = await deleteQuestionById(questionId)
+
+        return sendDataResponse(res, 200, { question: deletedQuestion })
+    } catch (error) {
+        console.error(ERR.UNABLE_TO_DELETE_QUESTION, error)
+        
+        return sendMessageResponse(res, 500, ERR.UNABLE_TO_DELETE_QUESTION)
     }
 }

@@ -28,7 +28,7 @@ model Question {
   resolved    Boolean     @default(false)
   resolution  String?
   userId      Int
-  user        User        @relation(fields: [userId], references: [id])
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   forecasts   Forecast[]
 }
 
@@ -40,5 +40,5 @@ model Forecast {
   userId      Int
   user        User      @relation(fields: [userId], references: [id])
   questionId  Int
-  question    Question  @relation(fields: [questionId], references: [id])
+  question    Question  @relation(fields: [questionId], references: [id], onDelete: Cascade)
 }

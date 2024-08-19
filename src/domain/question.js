@@ -81,3 +81,19 @@ export const createNewQuestion = async (userId, title) => {
         }
     })
 }
+
+export const deleteQuestionById = async (questionId) => {
+    return await dbClient.question.delete({
+        where: {
+            id: questionId
+        }
+    })
+}
+
+export const getQuestionById = async (questionId) => {
+    return await dbClient.question.findFirst({
+        where: {
+            id: questionId
+        }
+    })
+}
