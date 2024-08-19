@@ -72,3 +72,12 @@ export const resolveQuestionById = async (questionId, resolution) => {
         }
     })
 }
+
+export const createNewQuestion = async (userId, title) => {
+    return await dbClient.question.create({
+        data: {
+            userId:userId,
+            title: title
+        }
+    })
+}
