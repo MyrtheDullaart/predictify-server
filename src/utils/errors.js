@@ -15,5 +15,7 @@ export default {
     UNABLE_TO_CREATE_QUESTION: 'Unable to create question',
     UNABLE_TO_DELETE_QUESTION: 'Unable to delete question',
     QUESTION_NOT_FOUND: 'Question not found',
-    NOT_AUTHORISED: 'Not authorised to complete action'
+    NOT_AUTHORISED: 'Not authorised to complete action',
+    UNABLE_TO_RESOLVE_QUESTION: 'Unable to resolve question',
+    UNABLE_TO_EDIT_QUESTION: 'Unable to edit question'
   }

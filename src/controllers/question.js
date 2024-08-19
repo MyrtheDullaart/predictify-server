@@ -1,6 +1,6 @@
 import { sendDataResponse, sendMessageResponse } from '../utils/responses.js'
 import ERR from '../utils/errors.js'
-import { createNewQuestion, deleteQuestionById, getAllQuestionsByUserId, getQuestionById, resolveQuestionById } from '../domain/question.js'
+import { createNewQuestion, deleteQuestionById, editQuestionById, getAllQuestionsByUserId, getQuestionById, resolveQuestionById } from '../domain/question.js'
 
 export const getQuestionsByUserId = async (req, res) => {
     const { id: userId } = req.user
@@ -17,18 +17,43 @@ export const getQuestionsByUserId = async (req, res) => {
     }
 }
 
-export const resolveQuestion = async (req, res) => {
-    const { questionId, resolution } = req.body
+export const editQuestion = async (req, res) => {
+    const { questionId, resolution, title } = req.body
 
-    try {
-        const resolvedQuestion = await resolveQuestionById(questionId, resolution)
+    const foundQuestion = await getQuestionById(questionId)
 
-        return sendDataResponse(res, 200, { question: resolvedQuestion })
-    } catch (error) {
-        console.error(ERR.UNABLE_TO_GET_QUESTIONS, error)
-        
-        return sendMessageResponse(res, 500, ERR.UNABLE_TO_GET_QUESTIONS)
+    if (!foundQuestion) {
+        return sendDataResponse(res, 404, { error: ERR.QUESTION_NOT_FOUND })
     }
+
+    if (foundQuestion.userId !== userId) {
+        return sendDataResponse(res, 403, { error: ERR.NOT_AUTHORISED })
+    }
+
+    if (resolution) {
+        try {
+            const resolvedQuestion = await resolveQuestionById(questionId, resolution)
+    
+            return sendDataResponse(res, 200, { question: resolvedQuestion })
+        } catch (error) {
+            console.error(ERR.UNABLE_TO_RESOLVE_QUESTION, error)
+            
+            return sendMessageResponse(res, 500, ERR.UNABLE_TO_RESOLVE_QUESTION)
+        }
+    }
+
+    if (title) {
+        try {
+            const editedQuestion = await editQuestionById(questionId, title)
+    
+            return sendDataResponse(res, 200, { question: editedQuestion })
+        } catch (error) {
+            console.error(ERR.UNABLE_TO_EDIT_QUESTION, error)
+            
+            return sendMessageResponse(res, 500, ERR.UNABLE_TO_EDIT_QUESTION)
+        }
+    }
+
 }
 
 export const createQuestion = async (req, res) => {

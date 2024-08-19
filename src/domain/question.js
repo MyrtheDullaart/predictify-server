@@ -97,3 +97,14 @@ export const getQuestionById = async (questionId) => {
         }
     })
 }
+
+export const editQuestionById = async (questionId, title) => {
+    return await dbClient.question.update({
+        where: {
+            id: questionId
+        },
+        data: {
+            title: title
+        }
+    })
+}
