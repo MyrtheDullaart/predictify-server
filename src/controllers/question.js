@@ -19,6 +19,7 @@ export const getQuestionsByUserId = async (req, res) => {
 
 export const editQuestion = async (req, res) => {
     const { questionId, resolution, title } = req.body
+    const { id: userId } = req.user
 
     const foundQuestion = await getQuestionById(questionId)
 
