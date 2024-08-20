@@ -18,7 +18,7 @@ export const getQuestionsByUserId = async (req, res) => {
 }
 
 export const editQuestion = async (req, res) => {
-    const { questionId, resolution, title } = req.body
+    const { questionId, resolution, brierScore, title } = req.body
     const { id: userId } = req.user
 
     const foundQuestion = await getQuestionById(questionId)
@@ -31,9 +31,9 @@ export const editQuestion = async (req, res) => {
         return sendDataResponse(res, 403, { error: ERR.NOT_AUTHORISED })
     }
 
-    if (resolution) {
+    if (questionId && resolution && brierScore) {
         try {
-            const resolvedQuestion = await resolveQuestionById(questionId, resolution)
+            const resolvedQuestion = await resolveQuestionById(questionId, resolution, brierScore)
     
             return sendDataResponse(res, 200, { question: resolvedQuestion })
         } catch (error) {
@@ -43,7 +43,7 @@ export const editQuestion = async (req, res) => {
         }
     }
 
-    if (title) {
+    if (questionId && title) {
         try {
             const editedQuestion = await editQuestionById(questionId, title)
     

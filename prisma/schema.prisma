@@ -30,6 +30,7 @@ model Question {
   userId      Int
   user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   forecasts   Forecast[]
+  brierScore  Decimal?    @db.Decimal(5,4)
 }
 
 model Forecast {
